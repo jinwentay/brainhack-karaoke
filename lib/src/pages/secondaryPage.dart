@@ -96,7 +96,7 @@ class _AboutUsState extends State<AboutUsList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: ListView(
         children: words.map((item) => wordsTemplate(item)).toList()
       )
     );

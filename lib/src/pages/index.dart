@@ -78,8 +78,6 @@ class IndexState extends State<IndexPage> with TickerProviderStateMixin {
               children: <Widget>[
                 Image.asset('assets/mic.png'),
                 AnimatedText(),
-                SizedBox(height: 20),
-                Text('Join a channel below and unleash the beast in you'),
                 Row(
                   children: <Widget>[
                     Expanded(
@@ -91,7 +89,7 @@ class IndexState extends State<IndexPage> with TickerProviderStateMixin {
                         border: UnderlineInputBorder(
                           borderSide: BorderSide(width: 1),
                         ),
-                        hintText: 'Channel name',
+                        hintText: 'Enter a channel name to start partying',
                       ),
                     ))
                   ],
@@ -104,7 +102,7 @@ class IndexState extends State<IndexPage> with TickerProviderStateMixin {
                         child: RaisedButton(
                           onPressed: onJoin,
                           child: Text('Join'),
-                          color: Colors.blueAccent,
+                          color: Colors.purple[800],
                           textColor: Colors.white,
                         ),
                       )

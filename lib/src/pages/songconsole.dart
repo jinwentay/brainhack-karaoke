@@ -60,7 +60,7 @@ class _SongConsoleState extends State<SongConsole>{
                 fillColor: Colors.white,
                 // contentPadding: const EdgeInsets.only(left: 14.0, bottom: 3.0, top: 3.0),
                 border: InputBorder.none,
-                hintText: 'Enter Video Url',
+                hintText: 'Enter Video Url (Not working yet)',
                 hintStyle: TextStyle(color: Colors.black54),
               ),
             ),
@@ -89,7 +89,7 @@ class _SongConsoleState extends State<SongConsole>{
                   child: snapshot.hasData ?
                     ListView.builder(
                       padding: EdgeInsets.only(top: 0.0),
-                      itemCount: songlist.length,
+                      itemCount: (songlist == null) ? 0 : songlist.length,
                       itemBuilder: (context, index) {
                         var songUrl = songlist[index];
                         var songname = SongNameParser.getSongName(songUrl);
@@ -119,23 +119,24 @@ class _SongConsoleState extends State<SongConsole>{
               ]
             ),
           ),
-          body: SingleChildScrollView(
-            child : snapshot.hasData && songlist.length > 0 ? Column(
-              children: [
-                Text('Now Playing (cos its first in the list)'),
-                Container(
-                  margin: EdgeInsets.all(16),
-                  child: snapshot.hasData ? Center(child: Text(SongNameParser.getSongName(songlist[0]), style: TextStyle(fontSize: 25, color: Colors.black, fontWeight: FontWeight.w700),)) 
-                  : CircularProgressIndicator(),
-                ),
-                Text(snapshot.hasData ? songlist[0] : '', style: TextStyle(fontSize: 11),),
-              ],
-            ) 
-            : Text('add songs to play!')
-            // CallPage(
-            //       channelName: widget.channelName,
-            //     ),
-          ),
+          body: 
+          // SingleChildScrollView(
+          //   child : snapshot.hasData && songlist.length > 0 ? Column(
+          //     children: [
+          //       Text('Now Playing (cos its first in the list)'),
+          //       Container(
+          //         margin: EdgeInsets.all(16),
+          //         child: snapshot.hasData ? Center(child: Text(SongNameParser.getSongName(songlist[0]), style: TextStyle(fontSize: 25, color: Colors.black, fontWeight: FontWeight.w700),)) 
+          //         : CircularProgressIndicator(),
+          //       ),
+          //       Text(snapshot.hasData ? songlist[0] : '', style: TextStyle(fontSize: 11),),
+          //     ],
+          //   ) 
+          //   : Text('add songs to play!')
+            CallPage(
+                  channelName: widget.channelName,
+                )
+          // ),
         );
       }
     );
