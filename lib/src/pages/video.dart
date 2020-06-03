@@ -1,98 +1,11 @@
-// import 'package:video_player/video_player.dart';
-// import 'package:flutter/material.dart';
-// import 'package:web_socket_channel/io.dart';
-// import 'package:web_socket_channel/web_socket_channel.dart';
-// void main() => runApp(VideoApp(channel: IOWebSocketChannel.connect('ws://echo.websocket.org'),));
-
-// class VideoApp extends StatefulWidget {
-//   // final WebSocketChannel channel;
-
-//   VideoApp({Key key, @required this.channel})
-//       : super(key: key);
-//   @override
-//   _VideoAppState createState() => _VideoAppState();
-// }
-
-// class _VideoAppState extends State<VideoApp> {
-//   VideoPlayerController _controller;
-//   Future<void> _initializeVideoPlayerFuture;
-//   WebSocketChannel channel;
-//   @override
-//   void initState() {
-//     super.initState();
-//     // final file = File();
-//     _controller = VideoPlayerController.network('https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4');
-//     // Initialize the controller and store the Future for later use.
-//     _initializeVideoPlayerFuture = _controller.initialize();
-
-//     // Use the controller to loop the video.
-//     _controller.setLooping(true);
-//     // channel = IOWebSocketChannel.connect("ws://localhost:1234");
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     widget.channel.stream.listen((message) {
-//       print(message);
-//       if (message == 'play') {
-//         setState(() {
-//           _controller.play();
-//         });
-//       } else {
-//         setState(() {
-//           _controller.pause();
-//         });
-//       }
-//       // setState(() {
-//       //   _controller.value.isPlaying
-//       //       ? _controller.pause()
-//       //       : _controller.play();
-//       // });
-//     });
-//     return MaterialApp(
-//       title: 'Video Demo',
-//       home: Scaffold(
-//         body: 
-//             Center(
-//               child: _controller.value.initialized
-//                   ? AspectRatio(
-//                       aspectRatio: _controller.value.aspectRatio,
-//                       child: VideoPlayer(_controller),
-//                     )
-//                   : Container(),
-//             ),
-//             floatingActionButton: FloatingActionButton(
-//               onPressed: () {
-//                 if (_controller.value.isPlaying) {
-//                   channel.sink.add('play');
-//                 } else {
-//                   channel.sink.add('pause');
-//                 }
-//               },
-//               child: Icon(
-//                 _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-//               ),
-//             ),
-//         // ),
-//         ),
-//       // ),
-//     );
-//   }
-
-//   @override
-//   void dispose() {
-//      _controller.dispose();
-//     channel.sink.close();
-//     super.dispose();
-//   }
-// }
-
 import 'package:agora_flutter_quickstart/src/services/database.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 void main() => runApp(VideoApp());
 
 class VideoApp extends StatefulWidget {
+  final String channelName;// = '123';
+  const VideoApp({Key key, this.channelName}) : super(key: key);
   @override
   _VideoAppState createState() => _VideoAppState();
 }
@@ -104,7 +17,7 @@ class _VideoAppState extends State<VideoApp> {
   Future<void> _initializeVideoPlayerFuture;
   
   void getKTVRoomList() async {
-    await databaseMethods.getKtvRoom('1234').then((value){
+    await databaseMethods.getKtvRoom(widget.channelName).then((value){
       setState(() {
         ktvRoomStream = value;
       });
@@ -116,7 +29,7 @@ class _VideoAppState extends State<VideoApp> {
     super.initState();
     getKTVRoomList();
     // final file = File();
-    databaseMethods.createOrUpdateKtvRoomVideoState('1234', 'pause');
+    databaseMethods.createOrUpdateKtvRoomVideoState(widget.channelName, 'pause');
     _controller = VideoPlayerController.network('https://tzw0.github.io/videos/perfect.mp4');
     // Initialize the controller and store the Future for later use.
     _initializeVideoPlayerFuture = _controller.initialize();
@@ -166,10 +79,10 @@ class _VideoAppState extends State<VideoApp> {
           onPressed: () {
             setState(() {
               if (_controller.value.isPlaying) {
-                databaseMethods.createOrUpdateKtvRoomVideoState('1234', 'pause'); //when these 2 commented somehow ok
+                databaseMethods.createOrUpdateKtvRoomVideoState(widget.channelName, 'pause'); //when these 2 commented somehow ok
                 _controller.pause();
               } else {
-                databaseMethods.createOrUpdateKtvRoomVideoState('1234', 'play'); //when these 2 commented somehow ok
+                databaseMethods.createOrUpdateKtvRoomVideoState(widget.channelName, 'play'); //when these 2 commented somehow ok
                 _controller.play();
               }
             });

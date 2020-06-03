@@ -308,7 +308,7 @@ class _CallPageState extends State<CallPage> {
               children: [
                 Expanded(
                   flex: 4,
-                  child: VideoApp(),
+                  child: VideoApp(channelName: widget.channelName),
                 ),
                 Expanded(
                   flex: 6,
