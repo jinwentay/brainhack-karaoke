@@ -77,19 +77,7 @@ class IndexState extends State<IndexPage> with TickerProviderStateMixin {
             child: Column(
               children: <Widget>[
                 Image.asset('assets/mic.png'),
-                // Text(
-                //   'WeOKE!',
-                //   style: TextStyle(
-                //     fontSize: size,
-                //     fontWeight: FontWeight.bold,
-                //     foreground: Paint()
-                //       ..shader = LinearGradient(
-                //         colors: <Color>[Color(0xffDA44bb), Color(0xff8921aa)],
-                //       ).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0))
-                //   ),
-                // ),
                 AnimatedText(),
-                SizedBox(height: 20),
                 Row(
                   children: <Widget>[
                     Expanded(
@@ -101,7 +89,7 @@ class IndexState extends State<IndexPage> with TickerProviderStateMixin {
                         border: UnderlineInputBorder(
                           borderSide: BorderSide(width: 1),
                         ),
-                        hintText: 'Channel name',
+                        hintText: 'Enter a channel name to start partying',
                       ),
                     ))
                   ],
@@ -114,7 +102,7 @@ class IndexState extends State<IndexPage> with TickerProviderStateMixin {
                         child: RaisedButton(
                           onPressed: onJoin,
                           child: Text('Join'),
-                          color: Colors.blueAccent,
+                          color: Colors.purple[800],
                           textColor: Colors.white,
                         ),
                       )

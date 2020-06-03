@@ -9,7 +9,7 @@ class CallPage extends StatefulWidget {
   final String channelName;
 
   /// Creates a call page with given channel name.
-  const CallPage({Key key, this.channelName}) : super(key: key);
+  const CallPage({Key key, this.channelName, }) : super(key: key);
 
   @override
   _CallPageState createState() => _CallPageState();
