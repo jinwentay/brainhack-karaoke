@@ -9,7 +9,7 @@ class CallPage extends StatefulWidget {
   final String channelName;
 
   /// Creates a call page with given channel name.
-  const CallPage({Key key, this.channelName}) : super(key: key);
+  const CallPage({Key key, this.channelName, }) : super(key: key);
 
   @override
   _CallPageState createState() => _CallPageState();
@@ -120,7 +120,7 @@ class _CallPageState extends State<CallPage> {
 
   /// Helper function to get list of native views
   List<Widget> _getRenderViews() {
-    final list = [
+    final List<AgoraRenderWidget> list = [
       AgoraRenderWidget(0, local: true, preview: true),
     ];
     _users.forEach((int uid) => list.add(AgoraRenderWidget(uid)));
@@ -347,17 +347,17 @@ class _CallPageState extends State<CallPage> {
       body: Center(
         child: Stack(
           children: <Widget>[
-            Column(children: [
-              Expanded(
-                flex: 1,
-                child: VideoApp(channelName: widget.channelName),
-
-              ),
-              Expanded(
-                flex: 2,
-                child: _viewRows(),
-              ),
-            ]),
+            Column(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: VideoApp(channelName: widget.channelName),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: _viewRows(),
+                ),
+              ]),
             //_panel(),
             _toolbar(),
           ],
