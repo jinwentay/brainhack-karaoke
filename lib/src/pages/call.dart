@@ -129,7 +129,27 @@ class _CallPageState extends State<CallPage> {
 
   /// Video view wrapper
   Widget _videoView(view) {
-    return Expanded(child: Container(child: view));
+    return Expanded(
+        child: Container(
+      alignment: Alignment.center,
+      child: view,
+      padding: EdgeInsets.all(5),
+      margin: EdgeInsets.all(5),
+      decoration: BoxDecoration(
+          color: Colors.grey[300], borderRadius: BorderRadius.circular(5)),
+    ));
+  }
+
+  /// Video view wrapper special
+  Widget _videoViewSpecial(view) {
+    return Container(
+      alignment: Alignment.center,
+      child: view,
+      padding: EdgeInsets.all(5),
+      margin: EdgeInsets.all(5),
+      decoration: BoxDecoration(
+          color: Colors.grey[300], borderRadius: BorderRadius.circular(5)),
+    );
   }
 
   /// Video view row wrapper
@@ -153,18 +173,19 @@ class _CallPageState extends State<CallPage> {
         ));
       case 2:
         return Container(
-            child: Column(
-          children: <Widget>[
-            _expandedVideoRow([views[0]]),
-            _expandedVideoRow([views[1]])
-          ],
-        ));
+            child: Row(children: <Widget>[
+          _expandedVideoRow(views),
+        ]));
       case 3:
         return Container(
             child: Column(
           children: <Widget>[
             _expandedVideoRow(views.sublist(0, 2)),
-            _expandedVideoRow(views.sublist(2, 3))
+            Flexible(
+              child: FractionallySizedBox(
+                  widthFactor: 0.5,
+                  child: _videoViewSpecial(views[2])),
+            ),
           ],
         ));
       case 4:
@@ -173,6 +194,28 @@ class _CallPageState extends State<CallPage> {
           children: <Widget>[
             _expandedVideoRow(views.sublist(0, 2)),
             _expandedVideoRow(views.sublist(2, 4))
+          ],
+        ));
+      case 5:
+       return Container(
+            child: Column(
+          children: <Widget>[
+            _expandedVideoRow(views.sublist(0, 2)),
+            _expandedVideoRow(views.sublist(2, 4)),
+            Flexible(
+              child: FractionallySizedBox(
+                  widthFactor: 0.5,
+                  child: _videoViewSpecial(views[4])),
+            ),
+          ],
+        ));
+      case 6:
+        return Container(
+            child: Column(
+          children: <Widget>[
+            _expandedVideoRow(views.sublist(0, 2)),
+            _expandedVideoRow(views.sublist(2, 4)),
+            _expandedVideoRow(views.sublist(4, 6))
           ],
         ));
       default:
@@ -307,15 +350,15 @@ class _CallPageState extends State<CallPage> {
             Column(
               children: [
                 Expanded(
-                  flex: 4,
+                  flex: 1,
                   child: VideoApp(channelName: widget.channelName),
                 ),
                 Expanded(
-                  flex: 6,
+                  flex: 2,
                   child: _viewRows(),
                 ),
               ]),
-            _panel(),
+            //_panel(),
             _toolbar(),
           ],
         ),
